@@ -38,7 +38,11 @@ module.exports = (app) => {
         const $ = cheerio.load(endTagQuote);
 
         let x = $('tr').text().split('\n');
-        x.splice(0, 6);
+        x.forEach((el, i) => {
+            if (el === "Quick Facts") {
+                x.splice(0, i);
+            }
+        });
 
         x = x.filter(val => val !== '').map(el => el.trim());
 
@@ -47,6 +51,7 @@ module.exports = (app) => {
                 el.replace(/ +/g, "")
             }
         });
+
 
         console.log(x);
 
