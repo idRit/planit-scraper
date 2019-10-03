@@ -1,7 +1,6 @@
 module.exports = (app) => {
     const fetch = require('node-fetch');
     app.get('/api/getRandomCountry', async (req, res) => {
-
         return res.json({
             success: true,
             text: await getRandomCity()
@@ -38,20 +37,20 @@ module.exports = (app) => {
         const $ = cheerio.load(endTagQuote);
 
         let x = $('tr').text().split('\n');
+        
+        x = x.filter(val => val !== '').map(el => el.trim());
+        
         x.forEach((el, i) => {
             if (el === "Quick Facts") {
-                x.splice(0, i);
+                x.splice(0, i+1);
             }
         });
-
-        x = x.filter(val => val !== '').map(el => el.trim());
 
         x.forEach((el, i) => {
             if (i % 2 === 0) {
                 el.replace(/ +/g, "")
             }
         });
-
 
         console.log(x);
 
