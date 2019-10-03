@@ -56,5 +56,5 @@ async function getCats(city) {
 
 require('./route')(app);
 
-app.listen(3001);
+app.listen(process.env.PORT || 3001);
 console.log('listening on port');
