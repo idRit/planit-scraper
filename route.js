@@ -14,6 +14,13 @@ module.exports = (app) => {
         });
     });
 
+    app.get('/api/getCountryImage/:country', async (req, res) => {
+        return res.json({
+            success: true,
+            image: await getCountryImage(req.params.country)
+        });
+    });
+
     async function getRandomCity() {
         let res = await (await fetch('https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json')).json();
 
@@ -63,6 +70,26 @@ module.exports = (app) => {
         console.log(details);
 
         return details;
+    }
+
+    async function getCountryImage(country) {
+        const cheerio = require('cheerio')
+        let res = await (await fetch(`https://wikitravel.org/en/${country}`)).text();
+
+        let fullBody = res;
+        let image = "";
+
+        let startTagQuote = fullBody.split('<div id="quickbar" style="float: right; margin: 0 0 1em 1em">')[1];
+        let endTagQuote = startTagQuote.split('</div>')[0];
+
+        console.log(endTagQuote);
+
+        const $ = cheerio.load(endTagQuote);
+
+        let x = $('img').attr('src');
+        console.log(x);
+
+        return x;
     }
 
 }
