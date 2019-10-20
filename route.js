@@ -3,24 +3,24 @@ module.exports = (app) => {
     const nodemailer = require("nodemailer");
 
     async function sendMail(msg, email) {
-        let password = require('./config/mail.config');
         try {
             let transporter = nodemailer.createTransport({
                 // host: 'smtp.gmail.com',
                 // port: 587,
                 // secure: false,
-                service: 'Gmail',
+                service: 'Yahoo',
                 auth: {
-                    user: "vit.concession@gmail.com",
-                    pass: password.emailPassword
+                    user: "mritwik@ymail.com",
+                    pass: "vkzfew3"
                 }
             });
 
             let info = await transporter.sendMail({
-                from: 'vit.concession@gmail.com',
+                from: 'mritwik@ymail.com',
                 to: email,
                 subject: "Trip Details",
-                text: msg
+                //text: msg,
+                html: msg
             });
             console.log("Message sent: %s", info.messageId);
             return true;
