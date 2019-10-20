@@ -6,9 +6,10 @@ module.exports = (app) => {
         let password = require('./config/mail.config');
         try {
             let transporter = nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                port: 587,
-                secure: false,
+                // host: 'smtp.gmail.com',
+                // port: 587,
+                // secure: false,
+                service: 'Gmail',
                 auth: {
                     user: "vit.concession@gmail.com",
                     pass: password.emailPassword
